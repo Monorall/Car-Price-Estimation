@@ -1,0 +1,37 @@
+<!--<h1>CarsController#index</h1>-->
+<!--<p>This is the index action in the CarsController.</p>-->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+<%= form_with scope: @car, url: cars_url, method: :get do |form| %>
+  <div class="container" style="text-align: center;" style="margin: auto">
+    <p class="mt"><%= form.label :year %></p>
+    <%= form.text_field :year, class:"form-control" %>
+
+    <p class="mt"><%= form.label :brand %></p>
+    <%= form.text_field :brand, class:"form-control" %>
+
+    <p class="mt"><%= form.label :model %></p>
+    <%= form.text_field :model, class:"form-control" %>
+
+    <p class="mt"><%= form.label :condition %></p>
+    <%= form.text_field :condition, class:"form-control" %>
+
+    <p class="mt"><%= form.label :engine_volume %></p>
+    <%= form.text_field :engine_volume, class:"form-control" %>
+
+    <p class="mt"><%= form.label :mileage %></p>
+    <%= form.text_field :mileage, class:"form-control" %>
+
+    <p class="mt"><%= form.label :fuel_type %></p>
+    <%= form.text_field :fuel_type, class:"form-control" %><br>
+    <p class="mt"><%= form.submit 'Estimate', class: 'button button-main', style:"color:white;" %></p>
+  </div>
+
+  <%# if result.zero? %>
+    <%# @price = result %>
+    <%#= render :evaluate %>
+  <%# else %>
+    <%#= flash[:error] = "Произошла ошибка: #{stderr}" %>
+    <%# redirect_to root_path %>
+    <%# end %>
+<% end %>
