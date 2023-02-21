@@ -12,9 +12,9 @@ class CarsController < ApplicationController
     @car = Car.new(evaluate)
 
     if @car.save
-      render :result
+      render json: { result: @car }, status: :ok
     else
-      render :new
+      render json: { errors: @car.errors.full_messages }, status: :unprocessable_entity
     end
   end
 
