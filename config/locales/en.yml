@@ -30,4 +30,16 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  car:
+    year: "Year"
+    brand: "Brand"
+    model: "Model"
+    condition: "Condition"
+    engine_volume: "Engine Volume"
+    mileage: "Mileage"
+    fuel_type: "Fuel Type"
+    submit: "Submit"
+
+    car_evaluation:
+      title: "Car evaluation result"
+      cost: "Car cost: "

@@ -1,0 +1,14 @@
+ru:
+  car:
+    year: "Год"
+    brand: "Марка"
+    model: "Модель"
+    condition: "Состояние"
+    engine_volume: "Мощность двигателя"
+    mileage: "Пробег"
+    fuel_type: "Тип топлива"
+    submit: "Оценка"
+
+    car_evaluation:
+      title: "Результат оценки автомобиля"
+      cost: "Стоимость автомобиля:  "

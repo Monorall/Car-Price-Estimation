@@ -22,6 +22,8 @@ gem "importmap-rails"
 
 gem "open3"
 
+gem 'i18n', '1.6'
+
 # Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
 gem "turbo-rails"
 
