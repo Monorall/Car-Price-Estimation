@@ -1,0 +1,19 @@
+ua:
+  car:
+    year: "Рік"
+    brand: "Марка"
+    model: "Модель"
+    condition: "Стан"
+    engine_volume: "Потужність двигуна"
+    mileage: "Пробіг"
+    fuel_type: "Тип палива"
+    fuel_type_floor:
+      gasoline: "бензин"
+      diesel: "дизель"
+      electric: "електро"
+      gas: "бензин/газ"
+    submit: "Оцінка"
+
+    car_evaluation:
+      title: "Результат оцінки автомобіля"
+      cost: "Вартість автомобіля: "
