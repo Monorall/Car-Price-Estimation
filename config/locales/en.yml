@@ -37,7 +37,12 @@ en:
     condition: "Condition"
     engine_volume: "Engine Volume"
     mileage: "Mileage"
-    fuel_type: "Fuel Type"
+    fuel_type: "Fuel type"
+    fuel_type_floor:
+      gasoline: "gasoline"
+      diesel: "diesel"
+      electric: "electric"
+      gas: "Gas/Petrol"
     submit: "Submit"
 
     car_evaluation:
