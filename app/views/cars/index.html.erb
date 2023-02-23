@@ -1,4 +1,29 @@
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+  <div class="container">
+    <a class="navbar-brand" href="#">Car Price Estimation</a>
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <%= link_to "English", url_for(locale: :en), class: "nav-link" %>
+        </li>
+        <li class="nav-item">
+          <%= link_to "Русский", url_for(locale: :ru), class: "nav-link" %>
+        </li>
+        <li class="nav-item">
+          <%= link_to "Українська", url_for(locale: :ua), class: "nav-link" %>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 
 <%= form_with scope: @car, url: cars_url, method: :get do |form| %>
   <div class="container" style="text-align: center;" style="margin: auto">
@@ -30,15 +55,6 @@
                                                      [I18n.t('car.fuel_type_floor.gas'), 'gas']
                                                    ]), { include_blank: true }, class: "form-control" %>
 
-
     <p class="mt"><%= form.submit I18n.t('car.submit'), class: 'button button-main', style:"color:white;" %></p>
   </div>
-
-  <%# if result.zero? %>
-    <%# @price = result %>
-    <%#= render :evaluate %>
-  <%# else %>
-    <%#= flash[:error] = "Произошла ошибка: #{stderr}" %>
-    <%# redirect_to root_path %>
-    <%# end %>
 <% end %>
