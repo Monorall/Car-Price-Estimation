@@ -2,27 +2,36 @@
 
 <%= form_with scope: @car, url: cars_url, method: :get do |form| %>
   <div class="container" style="text-align: center;" style="margin: auto">
-    <p class="mt"><%= form.label :year %></p>
-    <%= form.text_field :year, class:"form-control" %>
 
-    <p class="mt"><%= form.label :brand %></p>
+    <p class="mt"><%= form.label :year, I18n.t('car.year') %></p>
+    <%= form.select :year, (1930..2022).to_a.reverse, { include_blank: true }, class: "form-control" %>
+
+    <p class="mt"><%= form.label :brand, I18n.t('car.brand') %></p>
     <%= form.text_field :brand, class:"form-control" %>
 
-    <p class="mt"><%= form.label :model %></p>
+    <p class="mt"><%= form.label :model, I18n.t('car.model') %></p>
     <%= form.text_field :model, class:"form-control" %>
 
-    <p class="mt"><%= form.label :condition %></p>
+    <p class="mt"><%= form.label :condition, I18n.t('car.condition') %></p>
     <%= form.text_field :condition, class:"form-control" %>
 
-    <p class="mt"><%= form.label :engine_volume %></p>
+    <p class="mt"><%= form.label :engine_volume, I18n.t('car.engine_volume') %></p>
     <%= form.text_field :engine_volume, class:"form-control" %>
 
-    <p class="mt"><%= form.label :mileage %></p>
+    <p class="mt"><%= form.label :mileage, I18n.t('car.mileage') %></p>
     <%= form.text_field :mileage, class:"form-control" %>
 
-    <p class="mt"><%= form.label :fuel_type %></p>
-    <%= form.text_field :fuel_type, class:"form-control" %><br>
-    <p class="mt"><%= form.submit 'Estimate', class: 'button button-main', style:"color:white;" %></p>
+    <p class="mt"><%= form.label :fuel_type, I18n.t('car.fuel_type') %></p>
+
+    <%= form.select :fuel_type_floor, options_for_select([
+                                                     [I18n.t('car.fuel_type_floor.gasoline'), 'gasoline'],
+                                                     [I18n.t('car.fuel_type_floor.diesel'), 'diesel'],
+                                                     [I18n.t('car.fuel_type_floor.electric'), 'electric'],
+                                                     [I18n.t('car.fuel_type_floor.gas'), 'gas']
+                                                   ]), { include_blank: true }, class: "form-control" %>
+
+
+    <p class="mt"><%= form.submit I18n.t('car.submit'), class: 'button button-main', style:"color:white;" %></p>
   </div>
 
   <%# if result.zero? %>
