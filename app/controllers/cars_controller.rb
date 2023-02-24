@@ -21,7 +21,7 @@ class CarsController < ApplicationController
   def evaluate
     # получение входных параметров из формы
     year = params[:year] #год
-    brand = params[:brand] #марка
+    brands = params[:brands] #марка
     model = params[:model] #модель
     condition = params[:condition] #состояние
     engine_volume = params[:engine_volume] #мощьность двигателя
@@ -38,9 +38,11 @@ class CarsController < ApplicationController
     needs_undercarriage_repair = params[:needs_undercarriage_repair] #требует восстановления подвески
 
 
+
+
     # выполнение скрипта python с передачей параметров
     stdout, stderr, status = Open3.capture3("python3
-       #{Rails.root}/script/evaluate.py#{year} #{brand} #{model} #{condition} #{engine_volume} #{mileage} #{fuel_type}
+       #{Rails.root}/script/evaluate.py#{year} #{brands} #{model} #{condition} #{engine_volume} #{mileage} #{fuel_type}
                                        #{number_owners} #{transmission_type} #{motor_engine_size_litre} #{drive_type}
                                        #{color} #{needs_body_repair} #{needs_engine_repair} #{needs_undercarriage_repair}")
 

@@ -32,8 +32,8 @@
         <p class="mt"><%= form.label :year, I18n.t('car.year') %></p>
         <%= form.select :year, (1930..2022).to_a.reverse, { include_blank: true }, class: "form-control" %>
 
-        <p class="mt"><%= form.label :brand, I18n.t('car.brand') %></p>
-        <%= form.text_field :brand, class:"form-control" %>
+        <p class="mt"><%= form.label :brands, I18n.t('car.brand') %></p>
+        <%= form.text_field :brands, class:"form-control" %>
 
         <p class="mt"><%= form.label :model, I18n.t('car.model') %></p>
         <%= form.text_field :model, class:"form-control" %>
@@ -55,6 +55,30 @@
                                                                [I18n.t('car.fuel_type_floor.electric'), 'electric'],
                                                                [I18n.t('car.fuel_type_floor.gas'), 'gas']
                                                              ]), { include_blank: true }, class: "form-control" %>
+
+        <p class="mt"><%= form.label :number_owners, "Нou are the first owner?" %></p>
+        <%= form.check_box :number_owners, class: "form-control" %>
+
+        <p class="mt"><%= form.label :transmission_type, "Transmission type" %></p>
+        <%= form.text_field :transmission_type, class: "form-control" %>
+
+        <p class="mt"><%= form.label :motor_engine_size_litre, "Motor engine size (litre)" %></p>
+        <%= form.text_field :motor_engine_size_litre, class: "form-control" %>
+
+        <p class="mt"><%= form.label :drive_type, "Drive type" %></p>
+        <%= form.text_field :drive_type, class: "form-control" %>
+
+        <p class="mt"><%= form.label :color, "Color" %></p>
+        <%= form.text_field :color, class: "form-control" %>
+
+        <p class="mt"><%= form.label :needs_body_repair, "Needs body repair?" %></p>
+        <%= form.check_box :needs_body_repair %>
+
+        <p class="mt"><%= form.label :needs_engine_repair, "Needs engine repair?" %></p>
+        <%= form.check_box :needs_engine_repair %>
+
+        <p class="mt"><%= form.label :needs_undercarriage_repair, "Needs undercarriage repair?" %></p>
+        <%= form.check_box :needs_undercarriage_repair %>
       </div>
     </div>
     <div class="mt-3">
