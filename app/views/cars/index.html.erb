@@ -26,35 +26,40 @@
       integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 
 <%= form_with scope: @car, url: cars_url, method: :get do |form| %>
-  <div class="container" style="text-align: center;" style="margin: auto">
+  <div class="container mt-3" style="text-align: center;">
+    <div class="row">
+      <div class="col-sm-6 col-md-6">
+        <p class="mt"><%= form.label :year, I18n.t('car.year') %></p>
+        <%= form.select :year, (1930..2022).to_a.reverse, { include_blank: true }, class: "form-control" %>
 
-    <p class="mt"><%= form.label :year, I18n.t('car.year') %></p>
-    <%= form.select :year, (1930..2022).to_a.reverse, { include_blank: true }, class: "form-control" %>
+        <p class="mt"><%= form.label :brand, I18n.t('car.brand') %></p>
+        <%= form.text_field :brand, class:"form-control" %>
 
-    <p class="mt"><%= form.label :brand, I18n.t('car.brand') %></p>
-    <%= form.text_field :brand, class:"form-control" %>
+        <p class="mt"><%= form.label :model, I18n.t('car.model') %></p>
+        <%= form.text_field :model, class:"form-control" %>
+      </div>
+      <div class="col-sm-6 col-md-6">
+        <p class="mt"><%= form.label :condition, I18n.t('car.condition') %></p>
+        <%= form.text_field :condition, class:"form-control" %>
 
-    <p class="mt"><%= form.label :model, I18n.t('car.model') %></p>
-    <%= form.text_field :model, class:"form-control" %>
+        <p class="mt"><%= form.label :engine_volume, I18n.t('car.engine_volume') %></p>
+        <%= form.text_field :engine_volume, class:"form-control" %>
 
-    <p class="mt"><%= form.label :condition, I18n.t('car.condition') %></p>
-    <%= form.text_field :condition, class:"form-control" %>
+        <p class="mt"><%= form.label :mileage, I18n.t('car.mileage') %></p>
+        <%= form.text_field :mileage, class:"form-control" %>
 
-    <p class="mt"><%= form.label :engine_volume, I18n.t('car.engine_volume') %></p>
-    <%= form.text_field :engine_volume, class:"form-control" %>
-
-    <p class="mt"><%= form.label :mileage, I18n.t('car.mileage') %></p>
-    <%= form.text_field :mileage, class:"form-control" %>
-
-    <p class="mt"><%= form.label :fuel_type, I18n.t('car.fuel_type') %></p>
-
-    <%= form.select :fuel_type_floor, options_for_select([
-                                                     [I18n.t('car.fuel_type_floor.gasoline'), 'gasoline'],
-                                                     [I18n.t('car.fuel_type_floor.diesel'), 'diesel'],
-                                                     [I18n.t('car.fuel_type_floor.electric'), 'electric'],
-                                                     [I18n.t('car.fuel_type_floor.gas'), 'gas']
-                                                   ]), { include_blank: true }, class: "form-control" %>
-
-    <p class="mt"><%= form.submit I18n.t('car.submit'), class: 'button button-main', style:"color:white;" %></p>
+        <p class="mt"><%= form.label :fuel_type, I18n.t('car.fuel_type') %></p>
+        <%= form.select :fuel_type_floor, options_for_select([
+                                                               [I18n.t('car.fuel_type_floor.gasoline'), 'gasoline'],
+                                                               [I18n.t('car.fuel_type_floor.diesel'), 'diesel'],
+                                                               [I18n.t('car.fuel_type_floor.electric'), 'electric'],
+                                                               [I18n.t('car.fuel_type_floor.gas'), 'gas']
+                                                             ]), { include_blank: true }, class: "form-control" %>
+      </div>
+    </div>
+    <div class="mt-3">
+      <%= form.submit I18n.t('car.submit'), class: 'btn button-main btn-lg', style:"color:white;" %>
+    </div>
   </div>
 <% end %>
+
