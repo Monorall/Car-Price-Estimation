@@ -9,6 +9,7 @@ Rails.application.routes.draw do
     root "cars#index"
 
     # Cars routes
+
     get "/cars", to: "cars#index"
     get "/cars/new", to: "cars#new"
     post "/cars", to: "cars#create"

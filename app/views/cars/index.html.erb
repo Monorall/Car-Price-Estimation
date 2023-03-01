@@ -25,6 +25,8 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
       integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 
+<% car_brands = CarBrandsService.load_brands_and_models %>
+
 <%= form_with scope: @car, url: cars_url, method: :get do |form| %>
   <div class="container mt-3" style="text-align: center;">
     <div class="row">
@@ -32,12 +34,14 @@
         <p class="mt"><%= form.label :year, I18n.t('car.year') %></p>
         <%= form.select :year, (1930..2022).to_a.reverse, { include_blank: true }, class: "form-control" %>
 
-        <p class="mt"><%= form.label :brands, I18n.t('car.brand') %></p>
-        <%= form.text_field :brands, class:"form-control" %>
+        <p class="mt"><%= form.label :brand, I18n.t('car.brand') %></p>
+        <%= form.select :brand, car_brands[:brands], { include_blank: true }, { class: "form-control", id: "brand-select" } %>
 
         <p class="mt"><%= form.label :model, I18n.t('car.model') %></p>
-        <%= form.text_field :model, class:"form-control" %>
+        <%= form.select :model, {}, { include_blank: true }, { class: "form-control", id: "model-select" } %>
+
       </div>
+
       <div class="col-sm-6 col-md-6">
         <p class="mt"><%= form.label :condition, I18n.t('car.condition') %></p>
         <%= form.text_field :condition, class:"form-control" %>
@@ -60,11 +64,10 @@
         <%= form.check_box :number_owners, class: "form-control" %>
 
         <p class="mt"><%= form.label :transmission_type, "Transmission type" %></p>
-        <%= form.text_field :transmission_type, class: "form-control" %>
+        <%= form.text_field :transmission_type %>
 
         <p class="mt"><%= form.label :motor_engine_size_litre, "Motor engine size (litre)" %></p>
         <%= form.text_field :motor_engine_size_litre, class: "form-control" %>
-
         <p class="mt"><%= form.label :drive_type, "Drive type" %></p>
         <%= form.text_field :drive_type, class: "form-control" %>
 
@@ -86,4 +89,25 @@
     </div>
   </div>
 <% end %>
+
+<script>
+    $(function() {
+        var brands = <%= car_brands[:brands].to_json %>;
+        var models = <%= car_brands[:models].to_json %>;
+
+        $('#brand-select').change(function() {
+            var brand = $(this).val();
+            var modelsList = models[brand] || [];
+
+            var modelSelect = $('#model-select');
+            modelSelect.empty();
+
+            $.each(modelsList, function(index, value) {
+                modelSelect.append($('<option>').text(value).attr('value', value));
+            });
+        });
+    });
+</script>
+
+
 

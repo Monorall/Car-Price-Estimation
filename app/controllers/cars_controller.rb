@@ -1,21 +1,22 @@
 class CarsController < ApplicationController
   require 'open3'
+  require 'json'
+
+  def new
+    @car = Car.new
+    @car_brands = CarBrandsService.get_brands
+  end
 
   def index
 
   end
-  def new
-    @car = Car.new
-  end
 
   def create
-    @car = Car.new(evaluate)
 
-    if @car.save
-      render json: { result: @car }, status: :ok
-    else
-      render json: { errors: @car.errors.full_messages }, status: :unprocessable_entity
-    end
+  end
+
+  def show
+
   end
 
   def evaluate
@@ -37,9 +38,6 @@ class CarsController < ApplicationController
     needs_engine_repair = params[:needs_engine_repair] #требует восстановления двигателя
     needs_undercarriage_repair = params[:needs_undercarriage_repair] #требует восстановления подвески
 
-
-
-
     # выполнение скрипта python с передачей параметров
     stdout, stderr, status = Open3.capture3("python3
        #{Rails.root}/script/evaluate.py#{year} #{brands} #{model} #{condition} #{engine_volume} #{mileage} #{fuel_type}
@@ -58,4 +56,11 @@ class CarsController < ApplicationController
       redirect_to root_path
     end
   end
+
+  def update_models
+    brand = params[:brand]
+    models = CarBrandsService.get_models(brand)
+    render json: models
+  end
+
 end
