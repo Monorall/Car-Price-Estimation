@@ -35,7 +35,7 @@
 /config/master.key
 
 # Predictor ignore files and directories
-/predictor/checkpoints/*
+/predictor/trains/
 /predictor/venv/
 /predictor/tb/
 /predictor/__test.py

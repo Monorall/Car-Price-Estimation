@@ -11,14 +11,19 @@ from dataset import CarsDataset
 from torch.utils.data import DataLoader
 from torch.utils.tensorboard import SummaryWriter
 from model import CarPricePredictor
-from utils import get_current_time, evaluate_model, make_directory, prepare_dataset, set_seed
+from utils import *
 from sklearn.model_selection import train_test_split
 
 
-def train(model, opt, train_loader, test_loader, num_epochs, current_epoch=0, writer=None, criterion=None):
+def train(model, opt, train_loader, test_loader, num_epochs, current_epoch=0, train_dir=None, writer=None, criterion=None):
 
     if writer is None:
         writer = SummaryWriter(f"./tb/train/{get_current_time()}")
+
+    if train_dir is None:
+        train_dir_name = f"train_{get_current_time()}"
+        train_dir = os.path.join(config.TRAIN_DIR, train_dir_name)
+        make_directory(train_dir)
 
     if criterion is None:
         criterion = nn.MSELoss()
@@ -61,16 +66,10 @@ def train(model, opt, train_loader, test_loader, num_epochs, current_epoch=0, wr
 
             # Сохраняем чекпоинт с лучшей точностью, если необходимо:
             if config.SAVE_BEST_MODEL:
-                print("\033[32m=> Сохранение чекпоинта\033[0m")
+                print(f"\033[32m=> Сохранение чекпоинта. Score: {current_score}\033[0m", file=sys.stdout, flush=True)
 
-                # Создаем директорию для сохранения
-                dir_name = get_current_time()
-                dir_path = os.path.join(config.TRAIN_DIR, dir_name)
-                make_directory(dir_path)
-
-                # Сохраняем
-                model_path = os.path.join(dir_path, config.CHECKPOINT_NAME)
-                # save_checkpoint(model, opt, model_path, epoch)
+                model_path = os.path.join(train_dir, config.CHECKPOINT_NAME)
+                save_checkpoint(model, opt, model_path, epoch)
 
     writer.close()
 
@@ -131,13 +130,16 @@ def main():
     if config.LOAD_MODEL:
         print("\033[32m=> Загрузка последнего чекпоинта\033[0m")
 
-        # checkpoint_path = get_last_checkpoint()
-        # model, opt, current_epoch = load_checkpoint(model, opt, checkpoint_path)
+        try:
+            checkpoint_path = get_last_checkpoint()
+            model, opt, current_epoch = load_checkpoint(model, opt, checkpoint_path)
+        except FileNotFoundError:
+            print("\033[32m=> Неудачная загрузка\033[0m")
 
     num_epochs = config.NUM_EPOCHS  # Количество эпох обучения
 
     # Обучаем модель:
-    train(model, opt, train_loader, test_loader, num_epochs, current_epoch=current_epoch)
+    train(model, opt, train_loader, test_loader, num_epochs, train_dir=train_dir_path, current_epoch=current_epoch)
 
 
 if __name__ == "__main__":

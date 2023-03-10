@@ -1,5 +1,7 @@
 import os
 import random
+import sys
+
 import torch
 import shutil
 import config
@@ -89,6 +91,50 @@ def prepare_dataset(df):
     prepared_df = pd.concat([feature_df, target_df], axis=1)
 
     return prepared_df, preprocessor, target_scaler
+
+
+def save_checkpoint(model, optimizer, model_path, epoch=0) -> None:
+    """Сохраняет чекпоинт модели в процессе обучения (модель, оптимизатор, номер эпохи)."""
+
+    checkpoint = {
+        "model_state_dict": model.state_dict(),
+        "optimizer_state_dict": optimizer.state_dict(),
+        "epoch": epoch,
+    }
+    torch.save(checkpoint, model_path)
+
+
+def load_checkpoint(model, optimizer, checkpoint_file):
+    """Загружает чекпоинт модели. Возвращает модель, оптимизатор, номер эпохи"""
+
+    if not os.path.isfile(checkpoint_file):
+        raise FileNotFoundError(f"Ошибка: не удалось найти {checkpoint_file}")
+
+    checkpoint = torch.load(checkpoint_file, map_location=config.DEVICE)
+
+    model.load_state_dict(checkpoint["model_state_dict"])
+    optimizer.load_state_dict(checkpoint["optimizer_state_dict"])
+    epoch = checkpoint["epoch"]
+
+    return model, optimizer, epoch
+
+
+def get_last_checkpoint() -> str:
+    """Возвращает путь к последнему по времени сохранённому чекпоинту."""
+
+    try:
+        checkpoints = [d for d in os.listdir(config.TRAIN_DIR) if os.path.isdir(os.path.join(config.TRAIN_DIR, d))]
+        if not checkpoints:
+            raise IndexError
+        checkpoints.sort(key=lambda x: os.path.getmtime(os.path.join(config.TRAIN_DIR, x)))  # Сортировка по времени
+        path_to_model = os.path.join(config.TRAIN_DIR, checkpoints[-2], config.CHECKPOINT_NAME)
+        return path_to_model
+    except IndexError:
+        print(f"Ошибка: в директории {config.TRAIN_DIR} нет сохраненных чекпоинтов")
+        sys.exit(1)
+    except FileNotFoundError:
+        print(f'Ошибка: не удалось загрузить {config.CHECKPOINT_NAME}')
+        sys.exit(1)
 
 
 def set_seed(seed: int = 42) -> None:
