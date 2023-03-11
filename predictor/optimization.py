@@ -14,7 +14,7 @@ from utils import prepare_dataset
 
 def objective(trial):
     # Гиперпараметры, которые будем оптимизировать:
-    batch_size = trial.suggest_categorical("batch_size", [32, 64, 128])
+    batch_size = trial.suggest_int("batch_size", 1, 128)
     learning_rate = trial.suggest_float("learning_rate", 1e-5, 1e-1, log=True)
 
     # Инициализируем модель:
