@@ -62,7 +62,7 @@ def evaluate_model(model, data_loader):
 def prepare_dataset(df):
     cat_vars = ["cleared_customs", "brand", "model", "car_body",
                 "color", "transmission_type", "drive_type", "fuel_type",
-                "region", "exterior_condition", "after_an_accident", "fine_condition",
+                "exterior_condition", "after_an_accident", "fine_condition",
                 "first_owner", "garage_storage", "needs_body_repair", "needs_engine_repair",
                 "needs_undercarriage_repair", "not_bit", "not_colored", "not_on_the_move"]
 

@@ -85,7 +85,7 @@ def main():
     make_directory(train_dir_path)
 
     # Инициализируем модель:
-    model = CarPricePredictor()
+    model = CarPricePredictor(input_size=config.INPUT_FEATURES, output_size=config.OUT_FEATURES)
     model = model.to(config.DEVICE)
 
     # Определяем параметры, которые будем обновлять при обучении:

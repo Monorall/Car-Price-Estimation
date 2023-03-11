@@ -1,15 +1,13 @@
-import os
-import joblib
-import pandas as pd
-from sklearn.model_selection import train_test_split
-from torch import optim
-from torch.utils.data import DataLoader
 import config
 import optuna
-from dataset import CarsDataset
+import pandas as pd
+from torch import optim
 from train import train
-from model import CarPricePredictor
+from dataset import CarsDataset
 from utils import prepare_dataset
+from model import CarPricePredictor
+from torch.utils.data import DataLoader
+from sklearn.model_selection import train_test_split
 
 
 def objective(trial):
@@ -19,7 +17,6 @@ def objective(trial):
 
     # Инициализируем модель:
     model = CarPricePredictor(input_size=config.INPUT_FEATURES, output_size=config.OUT_FEATURES)
-
     model = model.to(config.DEVICE)
 
     # Определяем параметры, которые будем обновлять при обучении:
