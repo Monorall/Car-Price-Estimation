@@ -1,14 +1,11 @@
 import os
-
 import joblib
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from torch import optim
 from torch.utils.data import DataLoader
-
 import config
 import optuna
-
 from dataset import CarsDataset
 from train import train
 from model import CarPricePredictor
@@ -17,16 +14,11 @@ from utils import prepare_dataset
 
 def objective(trial):
     # Гиперпараметры, которые будем оптимизировать:
-    num_layers = trial.suggest_int("num_layers", 1, 6)
-    hidden_sizes = trial.suggest_int("hidden_size", 64, 512)
-    dropout_rate = trial.suggest_float("dropout_rate", 0.0, 0.5)
+    batch_size = trial.suggest_categorical("batch_size", [32, 64, 128])
+    learning_rate = trial.suggest_float("learning_rate", 1e-5, 1e-1, log=True)
 
     # Инициализируем модель:
-    model = CarPricePredictor(input_size=config.INPUT_FEATURES,
-                              output_size=config.OUT_FEATURES,
-                              num_layers=num_layers,
-                              hidden_size=hidden_sizes,
-                              dropout_rate=dropout_rate)
+    model = CarPricePredictor(input_size=config.INPUT_FEATURES, output_size=config.OUT_FEATURES)
 
     model = model.to(config.DEVICE)
 
@@ -34,7 +26,7 @@ def objective(trial):
     params_to_update = [param for param in model.parameters() if param.requires_grad]
 
     # Инициализируем оптимизатор:
-    opt = optim.Adam(params=params_to_update, lr=config.LEARNING_RATE)
+    opt = optim.Adam(params=params_to_update, lr=learning_rate)
 
     # Загружаем датасет:
     dataset = pd.read_csv("./data/cars_dataset.csv")
@@ -50,7 +42,7 @@ def objective(trial):
 
     train_loader = DataLoader(
         dataset=train_dataset,
-        batch_size=config.BATCH_SIZE,
+        batch_size=batch_size,
         shuffle=True,
         num_workers=config.NUM_WORKERS,
         pin_memory=True
@@ -58,7 +50,7 @@ def objective(trial):
 
     test_loader = DataLoader(
         dataset=test_dataset,
-        batch_size=config.BATCH_SIZE,
+        batch_size=batch_size,
         shuffle=False,
         num_workers=config.NUM_WORKERS
     )
