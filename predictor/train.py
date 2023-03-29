@@ -88,11 +88,8 @@ def main():
     model = CarPricePredictor(input_size=config.INPUT_FEATURES, output_size=config.OUT_FEATURES)
     model = model.to(config.DEVICE)
 
-    # Определяем параметры, которые будем обновлять при обучении:
-    params_to_update = [param for param in model.parameters() if param.requires_grad]
-
     # Инициализируем оптимизатор:
-    opt = optim.Adam(params=params_to_update, lr=config.LEARNING_RATE)
+    opt = optim.Adam(params=model.parameters(), lr=config.LEARNING_RATE)
 
     # Загружаем датасет:
     dataset = pd.read_csv("./data/cars_dataset.csv")

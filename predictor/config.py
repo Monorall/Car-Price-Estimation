@@ -2,7 +2,7 @@ import torch
 
 # Предустановки
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
-INPUT_FEATURES = 1552
+INPUT_FEATURES = 1551
 OUT_FEATURES = 1
 NUM_WORKERS = 2
 RANDOM_STATE = 42
@@ -13,7 +13,7 @@ BATCH_SIZE = 64
 LEARNING_RATE = 3e-4
 
 LOAD_MODEL = False
-SAVE_BEST_MODEL = False
+SAVE_BEST_MODEL = True
 
 # Датасет
 DATASET_FILE = "./data/cars_dataset.csv"
