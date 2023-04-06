@@ -17,19 +17,7 @@
     <p class="mt"><%= form.label :engine_volume %></p>
     <%= form.text_field :engine_volume, class:"form-control" %>
 
-    <p class="mt"><%= form.label :mileage %></p>
-    <%= form.text_field :mileage, class:"form-control" %>
 
-    <p class="mt"><%= form.label :fuel_type %></p>
-    <%= form.text_field :fuel_type, class:"form-control" %><br>
-    <p class="mt"><%= form.submit 'Estimate', class: 'button button-main', style:"color:white;" %></p>
   </div>
 
-  <%# if result.zero? %>
-    <%# @price = result %>
-    <%#= render :evaluate %>
-  <%# else %>
-    <%#= flash[:error] = "Произошла ошибка: #{stderr}" %>
-    <%# redirect_to root_path %>
-    <%# end %>
 <% end %>
