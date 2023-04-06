@@ -1,23 +1,167 @@
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Car Evaluation</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+</head>
+<body>
+<div class="container">
+  <h1>Car Evaluation</h1>
+  <%= form_with scope: @car, url: cars_url, method: :get do |form| %>
+    <div class="form-group">
+      <%= form.check_box :cleared_customs, { class: "form-check-input" }, true, false %>
+      <%= form.label :cleared_customs, class: "form-check-label" %>
+    </div>
+    <div class="form-group">
+      <%= form.label :brand %>
+      <%= form.text_field :brand, class:"form-control" %>
+    </div>
+    <div class="form-group">
+      <%= form.label :model %>
+      <%= form.text_field :model, class:"form-control" %>
+    </div>
+    <div class="form-group">
+      <%= form.label :car_body %>
+      <%= form.select :car_body, options_for_select([
+                                                      %w[Хэтчбек hatchback],
+                                                      %w[Седан sedan],
+                                                      %w[Купе coupe],
+                                                      %w[Универсал estate-car],
+                                                      %w[Внедрожник off-road-vehicle],
+                                                      %w[Пикап pickup],
+                                                      %w[Микроавтобус minibus],
+                                                      %w[Кабриолет cabriolet],
+                                                      %w[Легковой фургон caravan],
+                                                      %w[Лифтбек liftback],
+                                                      %w[Лимузин limo],
+                                                      %w[Другой other]
+                                                    ]), { include_blank: true }, class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <%= form.label :color %>
+      <%= form.select :color, options_for_select([
+                                                   %w[Красный red],
+                                                   %w[Синий blue],
+                                                   %w[Белый white],
+                                                   %w[Зеленый green],
+                                                   %w[Серый gray],
+                                                   %w[Серебристый silver],
+                                                   %w[Бежевый beige],
+                                                   %w[Черный black],
+                                                   %w[Вишневый cherry],
+                                                   %w[Желтый yellow],
+                                                   %w[Апельсин orange],
+                                                   %w[Коричневый brown],
+                                                   %w[Хамелеон chameleon],
+                                                   %w[Матовый matte],
+                                                   %w[Голубой light blue],
+                                                   %w[Бирюзовый turquoise],
+                                                   %w[Золотой gold],
+                                                   %w[Филетовый violet],
+                                                   %w[Асфальт asphalt],
+                                                   %w[Бронзовый bronze],
+                                                   %w[Розовый pink],
+                                                   %w[Сафари safari],
+                                                   %w[Оливковый olive],
+                                                   %w[Магнолия magnolia]
+                                                 ]), { include_blank: true }, class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <%= form.label :transmission_type %>
+      <%= form.select :transmission_type, options_for_select([
+                                                               %w[Механика manual],
+                                                               %w[Автомат automatic],
+                                                               %w[Вариатор cvt],
+                                                               %w[Типтроник tiptronic],
+                                                               %w[Адаптивная adaptive]
+                                                             ]), { include_blank: true }, class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <%= form.label :drive_type %>
+      <%= form.select :drive_type, options_for_select([
+                                                        %w[Передний front],
+                                                        %w[Задний back],
+                                                        %w[Полный full]
+                                                      ]), { include_blank: true }, class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <%= form.label :fuel_type %>
+      <%= form.select :fuel_type, options_for_select([
+                                                       %w[Дизель diesel],
+                                                       %w[Бензин petrol],
+                                                       %w[Газ gas],
+                                                       %w[Другой other],
+                                                       %w[Гибрид hybrid],
+                                                       %w[Электро electro]
+                                                     ]), { include_blank: true }, class: "form-control" %>    </div>
+    <div class="form-group">
+      <%= form.label :motor_engine_size_litre %>
+      <%= form.select :motor_engine_size_litre, options_for_select((5..59).step(1).map { |n| [n / 10.0, n / 10.0] }), { include_blank: true }, class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <%= form.label :exterior_condition %>
+      <%= form.select :exterior_condition, options_for_select([
+                                                                ["Требует серьёзного восстановления", "major_fixes_needed"],
+                                                                ["Мелкие царапины", "minor_scratches"],
+                                                                ["Требует незначительного восстановления", "minor_fixes_needed"],
+                                                                ["Как новая", "like_new"],
+                                                                ["Профессинально отремонтирована", "professionally_fixed"]
+                                                              ]), { include_blank: true }, class: "form-control" %>
 
-<%= form_with scope: @car, url: cars_url, method: :get do |form| %>
-  <div class="container" style="text-align: center;" style="margin: auto">
-    <p class="mt"><%= form.label :year %></p>
-    <%= form.text_field :year, class:"form-control" %>
+    </div>
+    <div class="form-group">
+      <%= form.check_box :after_an_accident, { class: "form-check-input" }, true, false %>
+      <%= form.label :after_an_accident, class: "form-check-label" %>
 
-    <p class="mt"><%= form.label :brand %></p>
-    <%= form.text_field :brand, class:"form-control" %>
+    </div>
+    <div class="form-group">
+      <%= form.check_box :fine_condition, { class: "form-check-input" }, true, false %>
+      <%= form.label :fine_condition, class: "form-check-label" %>
 
-    <p class="mt"><%= form.label :model %></p>
-    <%= form.text_field :model, class:"form-control" %>
-
-    <p class="mt"><%= form.label :condition %></p>
-    <%= form.text_field :condition, class:"form-control" %>
-
-    <p class="mt"><%= form.label :engine_volume %></p>
-    <%= form.text_field :engine_volume, class:"form-control" %>
-
-
-  </div>
-
+    </div>
+    <div class="form-group">
+      <%= form.check_box :first_owner, { class: "form-check-input" }, true, false %>
+      <%= form.label :first_owner, class: "form-check-label" %>
+    </div>
+    <div class="form-group">
+      <%= form.check_box :garage_storage, { class: "form-check-input" }, true, false %>
+      <%= form.label :garage_storage, class: "form-check-label" %>
+    </div>
+    <div class="form-group">
+      <%= form.check_box :needs_body_repair, { class: "form-check-input" }, true, false %>
+      <%= form.label :needs_body_repair, class: "form-check-label" %>
+    </div>
+    <div class="form-group">
+      <%= form.check_box :needs_engine_repair, { class: "form-check-input" }, true, false %>
+      <%= form.label :needs_engine_repair, class: "form-check-label" %>
+    </div>
+    <div class="form-group">
+      <%= form.check_box :not_bit, { class: "form-check-input" }, true, false %>
+      <%= form.label :not_bit, class: "form-check-label" %>
+    </div>
+    <div class="form-group">
+      <%= form.check_box :not_colored, { class: "form-check-input" }, true, false %>
+      <%= form.label :not_colored, class: "form-check-label" %>
+    </div>
+    <div class="form-group">
+      <%= form.check_box :not_on_the_move, { class: "form-check-input" }, true, false %>
+      <%= form.label :not_on_the_move, class: "form-check-label" %>
+    </div>
+    <div class="form-group">
+      <%= form.label :age %>
+      <%= form.select :age, options_for_select((1930..Date.current.year).map { |year| [year, Date.current.year - year] }), { include_blank: true }, class: "form-control" %>
+    </div>
+    <%= form.submit "Evaluate", class:"btn btn-primary" %>
 <% end %>
+
+  <% if @price.present? %>
+    <h2>Car Price: <%= @price %></h2>
+  <% end %>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZEu" crossorigin="anonymous"></script>
+</body>
+</html>
