@@ -1,5 +1,7 @@
-def main(*args):
-    return "22000.9390000"
+from predictor/evaluate_model import evaluate
+
+def main(features):
+    return evaluate(features)
 
 
 if __name__ == "__main__":
