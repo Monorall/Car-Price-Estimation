@@ -33,3 +33,12 @@
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
+
+# Predictor ignore files and directories
+/predictor/trains/
+/predictor/venv/
+/predictor/tb/
+/predictor/__test.py
+/predictor/.idea/
+/predictor/__pycache__/
+
